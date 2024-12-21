@@ -92,4 +92,13 @@ submitBtn.addEventListener("click", () => {
     updateStats();
     // Move to the next level...
   }
+  if (playerAnswer === challenges[currentChallengeIndex].answer) {
+  feedback.textContent = "Correct!";
+  feedback.classList.add("correct");
+  setTimeout(() => feedback.classList.remove("correct"), 1000);
+} else {
+  feedback.textContent = "Incorrect. Try again!";
+  feedback.classList.add("wrong");
+  setTimeout(() => feedback.classList.remove("wrong"), 1000);
+  }
 });
