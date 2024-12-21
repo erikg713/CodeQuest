@@ -78,3 +78,18 @@ console.log(fruits[1]);
 
   loadChallenge();
 });
+let score = 0;
+
+function updateStats() {
+  document.getElementById("score").textContent = score;
+  document.getElementById("level").textContent = currentChallengeIndex + 1;
+}
+
+submitBtn.addEventListener("click", () => {
+  const playerAnswer = input.value.trim();
+  if (playerAnswer === challenges[currentChallengeIndex].answer) {
+    score += 10;
+    updateStats();
+    // Move to the next level...
+  }
+});
