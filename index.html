@@ -1,1 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeQuest: Adventure in Syntax Land</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="game-container">
+    <header>
+      <h1>CodeQuest: Adventure in Syntax Land</h1>
+    </header>
 
+    <div id="game-area">
+      <p id="instruction">Welcome to Syntax Swamp! Complete the code to cross the swamp:</p>
+      <div id="challenge">
+        <pre>
+function greet(name) {
+  return `Hello, ${ name || "world" }!`;
+}
+        </pre>
+        <p>What does <code>greet()</code> return if no name is provided?</p>
+        <input type="text" id="player-input" placeholder="Type your answer here">
+        <button id="submit-btn">Submit</button>
+      </div>
+      <div id="feedback"></div>
+    </div>
+
+    <footer>
+      <p>Level 1: Syntax Swamp</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
