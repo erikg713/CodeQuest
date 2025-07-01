@@ -25,25 +25,3 @@ module.exports = {
   }
 };
 
-// This is a placeholder for real Pi SDK backend logic.
-// In production, use the official Pi backend SDK and validate payment signatures, etc.
-
-export async function handlePayment(paymentData) {
-  // Simulate payment validation and processing
-  return {
-    identifier: paymentData.identifier || 'demo_id',
-    user: { username: paymentData.username || 'demo_user' },
-    amount: paymentData.amount || '0.01',
-    transaction: { txid: paymentData.transaction?.txid || 'demo_txid' }
-  };
-}
-
-export async function createPayment(username, amount, memo) {
-  // Simulate creating a payment request
-  return {
-    paymentId: 'pi_' + Date.now(),
-    username,
-    amount,
-    memo
-  };
-}
