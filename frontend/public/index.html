@@ -6,7 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Palace of Quests Metaverse on Pi</title>
     <script src="https://sdk.minepi.com/pi-sdk.js"></script>
-  </head>
+  </head>if (window.Pi) {
+  window.Pi.init({
+    version: 2.0,
+    sandbox: true,
+  });
+  console.log("Pi Network SDK initialized in SANDBOX mode");
+}
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
