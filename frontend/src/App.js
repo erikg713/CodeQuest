@@ -1,7 +1,17 @@
 import React, { useState } from 'react';
 import PiPay from './PiPay';
 import supabase from './supabase';
+import PiInit from "./PiInit";
+// ...rest of your imports
 
+function App() {
+  return (
+    <>
+      <PiInit />
+      {/* rest of your app */}
+    </>
+  );
+}
 function App() {
   const [user, setUser] = useState(null);
 
