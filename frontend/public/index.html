@@ -18,3 +18,28 @@
     <div id="root"></div>
   </body>
 </html>
+// In your main App component
+{process.env.REACT_APP_PI_SANDBOX === "true" && (
+  <div style={{
+    position: "fixed",
+    top: 0,
+    width: "100%",
+    background: "orange",
+    color: "#222",
+    zIndex: 9999,
+    textAlign: "center",
+    padding: "6px 0",
+    fontWeight: "bold"
+  }}>// src/pi-init.js (example file)
+window.onload = function () {
+  if (window.Pi) {
+    window.Pi.init({
+      version: 2.0,
+      sandbox: true, // <-- THIS ENABLES SANDBOX MODE
+    });
+    console.log("Pi Network SDK initialized in SANDBOX mode");
+  }
+};
+    SANDBOX MODE ENABLED
+  </div>
+)}
