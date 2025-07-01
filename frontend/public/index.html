@@ -2,44 +2,101 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Palace of Quests Metaverse on Pi</title>
-    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
-  </head>if (window.Pi) {
-  window.Pi.init({
-    version: 2.0,
-    sandbox: true,
-  });
-  console.log("Pi Network SDK initialized in SANDBOX mode");
-}
+    <meta name="theme-color" content="#2b2c34" />
+    <meta name="description" content="Players embark on a journey as junior avatars in a virtual metaverse world full of dragons and layers and palaces everywhere." />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <title>CodeQuest Metaverse – Pi Network Sandbox</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: #111;
+        color: #fafafa;
+        font-family: 'Segoe UI', Arial, sans-serif;
+      }
+      .sandbox-banner {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        z-index: 10000;
+        background: repeating-linear-gradient(135deg, orange, #f6b73c 10px, orange 20px);
+        color: #222;
+        font-weight: bold;
+        letter-spacing: 1.5px;
+        text-align: center;
+        padding: 8px 0;
+        font-size: 1rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        user-select: none;
+      }
+      .sandbox-debug {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        background: #222;
+        color: #ffb300;
+        font-size: 0.98rem;
+        padding: 8px 16px;
+        z-index: 9999;
+        font-family: monospace;
+        box-shadow: 0 -1px 8px rgba(0,0,0,0.12);
+        opacity: 0.97;
+        pointer-events: none;
+        white-space: pre-wrap;
+      }
+      #root {
+        margin-top: 44px; /* Avoid being overlapped by banner */
+      }
+      @media (max-width: 600px) {
+        .sandbox-banner, .sandbox-debug {
+          font-size: 0.92rem;
+          padding: 6px 2vw;
+        }
+      }
+    </style>
+    <script src="https://sdk.minepi.com/pi-sdk.js" defer></script>
+  </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>
+      <div style="margin:32px;color:#d32f2f;font-weight:bold;">
+        Please enable JavaScript to run this app.
+      </div>
+    </noscript>
+    <div class="sandbox-banner">SANDBOX MODE ENABLED &mdash; PI NETWORK TEST ENVIRONMENT</div>
     <div id="root"></div>
+    <div class="sandbox-debug" id="sandbox-debug">
+      Pi Network SDK: initializing...
+    </div>
+    <script>
+      // Pi Network Sandbox Debug Initialization (Safe, readable, and easily customizable)
+      (function() {
+        function logDebug(msg) {
+          var debugDiv = document.getElementById('sandbox-debug');
+          if (debugDiv) debugDiv.textContent = '[Pi Sandbox Debug]: ' + msg;
+        }
+
+        function initPi() {
+          if (window.Pi) {
+            window.Pi.init({ version: 2.0, sandbox: true });
+            logDebug('SDK initialized in SANDBOX mode. window.Pi available.');
+            // Optionally, expose more debug info here as needed.
+          } else {
+            logDebug('ERROR: Pi SDK not found. Check your connection or Pi SDK script.');
+          }
+        }
+
+        // Wait for Pi SDK to load
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+          setTimeout(initPi, 0);
+        } else {
+          window.addEventListener('DOMContentLoaded', function() {
+            setTimeout(initPi, 0);
+          });
+        }
+      })();
+    </script>
   </body>
 </html>
-// In your main App component
-{process.env.REACT_APP_PI_SANDBOX === "true" && (
-  <div style={{
-    position: "fixed",
-    top: 0,
-    width: "100%",
-    background: "orange",
-    color: "#222",
-    zIndex: 9999,
-    textAlign: "center",
-    padding: "6px 0",
-    fontWeight: "bold"
-  }}>// src/pi-init.js (example file)
-window.onload = function () {
-  if (window.Pi) {
-    window.Pi.init({
-      version: 2.0,
-      sandbox: true, // <-- THIS ENABLES SANDBOX MODE
-    });
-    console.log("Pi Network SDK initialized in SANDBOX mode");
-  }
-};
-    SANDBOX MODE ENABLED
-  </div>
-)}
