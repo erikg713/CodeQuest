@@ -1,3 +1,57 @@
+import 'dotenv/config';
+import express from 'express';
+import cors from 'cors';
+import supabase from './supabase.js';
+import { handlePayment, createPayment } from './pi.js';
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+app.get('/api/user/:username', async (req, res) => {
+  const { username } = req.params;
+  const { data, error } = await supabase
+    .from('users')
+    .select('*')
+    .eq('username', username)
+    .single();
+  if (error || !data) return res.status(404).json({ error: 'User not found' });
+  res.json(data);
+});
+
+app.post('/api/pi/payment', async (req, res) => {
+  try {
+    const payment = await handlePayment(req.body);
+    await supabase.from('payments').insert([
+      {
+        payment_id: payment.identifier,
+        username: payment.user.username,
+        amount: payment.amount,
+        txid: payment.transaction.txid,
+        status: 'completed'
+      }
+    ]);
+    res.json({ ok: true });
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+});
+
+app.post('/api/payment', async (req, res) => {
+  const { username, amount, memo } = req.body;
+  try {
+    const paymentRequest = await createPayment(username, amount, memo);
+    res.json(paymentRequest);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+});
+
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () =>
+  console.log(`Backend running on http://localhost:${PORT}`)
+);
+
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
